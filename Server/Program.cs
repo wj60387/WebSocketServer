@@ -21,7 +21,7 @@ namespace Server
 
         static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
-            return;
+             
         }
     }
 }
