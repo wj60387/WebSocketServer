@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{47CAF600-522B-424D-9123-7E504E3C37A3}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Server</RootNamespace>
+    <AssemblyName>Server</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>UsingDll\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SuperSocket.Common, Version=1.6.4.0, Culture=neutral, PublicKeyToken=6c80000676988ebb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>UsingDll\SuperSocket.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="SuperSocket.SocketBase, Version=1.6.4.0, Culture=neutral, PublicKeyToken=6c80000676988ebb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>UsingDll\SuperSocket.SocketBase.dll</HintPath>
+    </Reference>
+    <Reference Include="SuperSocket.SocketEngine, Version=1.6.4.0, Culture=neutral, PublicKeyToken=6c80000676988ebb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>UsingDll\SuperSocket.SocketEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="SuperWebSocket">
+      <HintPath>UsingDll\SuperWebSocket.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common.cs" />
+    <Compile Include="DataGridViewEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Filter\AuthAttribute.cs" />
+    <Compile Include="Filter\RecordAttribute.cs" />
+    <Compile Include="Filter\RecordInvoker.cs" />
+    <Compile Include="Filter\RecordType.cs" />
+    <Compile Include="FrmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMain.Designer.cs">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Logger\LoggerHelper.cs" />
+    <Compile Include="MessageHandleCenter\Disused\HandleDownAudioFileCode.cs" />
+    <Compile Include="MessageHandleCenter\Disused\HandleGetDownedAudioCode.cs" />
+    <Compile Include="MessageHandleCenter\Disused\HandleGetShareMeAudioCode.cs" />
+    <Compile Include="MessageHandleCenter\HandleRemoteEnterCode.cs" />
+    <Compile Include="MessageHandleCenter\HandleRemoteExitCode.cs" />
+    <Compile Include="MessageHandleCenter\HandleRemoteStartAudioOutputCode.cs" />
+    <Compile Include="MessageHandleCenter\HandleRemoteStopAudioOutputCode.cs" />
+    <Compile Include="MessageHandleCenter\HandleRemoteAudioCode.cs" />
+    <Compile Include="MessageHandleCenter\HandleRequestOnlineInfoCode.cs" />
+    <Compile Include="MessageHandleCenter\HandleResRemoteAuscultateCode.cs" />
+    <Compile Include="MessageHandleCenter\HandleRequestRemoteAuscultateCode.cs" />
+    <Compile Include="MessageHandleCenter\Disused\HandleShareInfoCode.cs" />
+    <Compile Include="MessageHandleCenter\HandleRegistCode.cs" />
+    <Compile Include="MessageHandleCenter\Disused\HandleGetAudioInfoCode.cs" />
+    <Compile Include="MessageHandleCenter\Disused\HandleAudioFileUpLoadCode.cs" />
+    <Compile Include="MessageHandleCenter\Disused\HandleAudioInfoUpLoadCode.cs" />
+    <Compile Include="MessageHandleCenter\HandleResGetDeviceInfoCode.cs" />
+    <Compile Include="MessageHandleCenter\HandleRequestGetDeviceInfoCode.cs" />
+    <Compile Include="MessageHandleCenter\HandleRefleshStatusCode.cs" />
+    <Compile Include="MessageHandleCenter\Disused\HandleStetInfoDelCode.cs" />
+    <Compile Include="MessageHandleCenter\Disused\HandleStetInfoCode.cs" />
+    <Compile Include="MessageHandleCenter\IHandleMessage.cs" />
+    <Compile Include="MessageHandleCenter\MessageHandleFactory.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\SecurityHelper.cs" />
+    <Compile Include="Service\AuscultationService.cs" />
+    <Compile Include="Service\Common.cs" />
+    <Compile Include="Service\IAuscultationService.cs" />
+    <Compile Include="Service\WCFGobalException.cs" />
+    <Compile Include="Setting.cs" />
+    <Compile Include="SqlHelper.cs" />
+    <EmbeddedResource Include="DataGridViewEx.resx">
+      <DependentUpon>DataGridViewEx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMain.resx">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Config\log4net.config" />
+    <None Include="Config\log4net.unix.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="UsingDll\log4net.dll" />
+    <Content Include="UsingDll\SuperSocket.Common.dll" />
+    <Content Include="UsingDll\SuperSocket.SocketBase.dll" />
+    <Content Include="UsingDll\SuperSocket.SocketEngine.dll" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ProtocalData\ProtocalData.csproj">
+      <Project>{7f3c6f7e-edcc-4e6a-a4cb-71bcc521fbfd}</Project>
+      <Name>ProtocalData</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
