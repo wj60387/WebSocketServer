@@ -16,6 +16,7 @@ namespace Server.MessageHandleCenter
             requestOnlineInfoCode.DT.Columns.Add("Mac");
             foreach (var sess in session.AppServer.GetAllSessions())
             {
+                if (!Common.RemoteSession.ContainsKey(sess.SessionID))
                 requestOnlineInfoCode.DT.Rows.Add(sess.RemoteEndPoint.ToString(), sess.Cookies["SN"], sess.Cookies["MAC"]);
             }
             var bytes = ProtocalData.Utilities.SerializaHelper.Serialize(requestOnlineInfoCode);

@@ -123,9 +123,34 @@ namespace Server
         
         void appServer_NewSessionConnected(WebSocketSession session)
         {
-             
             if (session.Cookies == null || !session.Cookies.ContainsKey("SN") || !session.Cookies.ContainsKey("MAC"))
             {
+                //根据分配的远程听诊ID，确认为一次回话连接
+                if (session.Cookies.ContainsKey("RemoteID"))
+                {
+                    if (!Common.RemoteSession.ContainsKey(session.SessionID))
+                    Common.RemoteSession.Add(session.SessionID, session.Cookies["RemoteID"]);
+                    var remoteID = session.Cookies["RemoteID"];
+                    var code = new RYHDLCode();
+                    var bytes = ProtocalData.Utilities.SerializaHelper.Serialize(code);
+                    //线程安全考虑 不遍历字典 而是遍历字典的key
+                    var keys = Common.RemoteSession.Keys.Where(d => d != session.SessionID).ToArray();
+                    if (keys == null || keys.Length==0)
+                    {
+                        session.Send("等待小伙伴加入...");
+                        return;
+                    }
+                    foreach (var key in keys)
+                    {
+                        var sess = session.AppServer.GetSessionByID(key);
+                        //告诉别人自己上线了
+                        sess.Send(bytes, 0, bytes.Length);
+                        //告诉自己别人上线了
+                        session.Send(bytes, 0, bytes.Length);
+                    }
+                    return;
+                }
+
                 if (session.Cookies != null)
                     foreach (string cookie in session.Cookies.Keys)
                     {
@@ -157,24 +182,7 @@ namespace Server
             Invoke(new MethodInvoker(() =>
                 {
                     session.Send("连接服务器成功");
-                    //listBox1.Items.Add("Host:" + session.Host);//服务器的ip
-                    //listBox1.Items.Add("Uri:" + session.UriScheme);
-                    //listBox1.Items.Add("Path:" + session.Path);
-                    //if (session.Cookies != null)
-                    //{
-                    //    listBox1.Items.Add("Cookies:");
-                    //    foreach (var item in session.Cookies.Keys)
-                    //    {
-                    //        listBox1.Items.Add("Key:" + item + "," + "Value:" + session.Cookies[item.ToString()]);
-                    //    }
-                    //}
-                    //listBox1.Items.Add("CurrentToken:" + session.CurrentToken);
-
-                    //listBox1.Items.Add("SessionID:" + session.SessionID);
-                    //listBox1.Items.Add("Connection" + session.Connection);
-                    //listBox1.Items.Add("Origin" + session.Origin);
-                    //listBox1.Items.Add("LocalEndPoint" + session.LocalEndPoint);
-                    //listBox1.Items.Add("RemoteEndPoint" + session.RemoteEndPoint);
+                     
                     string sql = string.Format(@"insert into UserLoginLog (EndPoint,SN,MAC,SessionID,LogType,OccTime)
   select '{0}','{1}','{2}','{3}','{4}','{5}'", session.RemoteEndPoint.ToString(), session.Cookies["SN"], session.Cookies["MAC"]
                                             ,session.SessionID,"登录成功",DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") );
@@ -200,6 +208,24 @@ namespace Server
         }
         void appServer_SessionClosed(WebSocketSession session, SuperSocket.SocketBase.CloseReason value)
         {
+            if (session.Cookies != null && session.Cookies.ContainsKey("RemoteID"))
+            {
+                if (Common.RemoteSession.ContainsKey(session.SessionID))
+                    Common.RemoteSession.Remove(session.SessionID);
+
+                var remoteID = session.Cookies["RemoteID"];
+                var yhxxcode = new RYHXXCode();
+                var _bytes = ProtocalData.Utilities.SerializaHelper.Serialize(yhxxcode);
+                //线程安全考虑 不遍历字典 而是遍历字典的key
+                var keys = Common.RemoteSession.Keys.Where(d => d != session.SessionID).ToArray();
+                foreach (var key in keys)
+                {
+                    var sess = session.AppServer.GetSessionByID(key);
+                    sess.Send(_bytes, 0, _bytes.Length);
+                }
+                return;
+            }
+           
             if (session.Cookies != null && session.Cookies.ContainsKey("MAC"))
             {
                 if (MessageHandleFactory.Dict_Session_Token.ContainsKey(session.Cookies["MAC"]))

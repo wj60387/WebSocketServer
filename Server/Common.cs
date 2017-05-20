@@ -12,6 +12,10 @@ namespace Server
 
 
         public static Dictionary<string, string> OnlineUser = new Dictionary<string, string>();
+        /// <summary>
+        /// 远程听诊用户（那个独立的程序）SessionID,RemoteID
+        /// </summary>
+        public static Dictionary<string, string> RemoteSession = new Dictionary<string, string>();
 
      }
 }

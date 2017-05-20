@@ -16,6 +16,7 @@ namespace Server.MessageHandleCenter
             var sessions = session.AppServer.GetAllSessions();
             foreach (var item in sessions)
             {
+                if (!Common.RemoteSession.ContainsKey(item.SessionID))
                 //if (item != session)
                 item.Send(bytes, 0, bytes.Length);
             }

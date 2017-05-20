@@ -11,11 +11,14 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.ServiceModel;
+using System.ServiceModel.Activation;
 using System.ServiceModel.Channels;
 using System.Text;
 
 namespace AuscultationService
 {
+     //[AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
+
     // [RecordAttribute(Server.Filter.RecordType.LogAndException)]
   // [Publib.WCFException.WCF_ExceptionBehaviour(typeof(Publib.WCFException.WCF_ExceptionHandler))]
     // 注意: 使用“重构”菜单上的“重命名”命令，可以同时更改代码和配置文件中的类名“Service1”。
@@ -88,7 +91,7 @@ namespace AuscultationService
                 return true;
             return false;
         }
-        [RecordAttribute(Server.Filter.RecordType.None)]
+        //[RecordAttribute(Server.Filter.RecordType.None)]
         public string GetData(int value)
         {
           
@@ -135,12 +138,12 @@ namespace AuscultationService
                 File.Delete(FileName);
             }
         }
-        [RecordAttribute(Server.Filter.RecordType.Right | Server.Filter.RecordType.Log | Server.Filter.RecordType.Exception)]
+       // [RecordAttribute(Server.Filter.RecordType.Right | Server.Filter.RecordType.Log | Server.Filter.RecordType.Exception)]
         public bool isExistFolder(string FolderPath)
         {
             return Directory.Exists(FolderPath);
         }
-        [RecordAttribute(Server.Filter.RecordType.Right | Server.Filter.RecordType.Log | Server.Filter.RecordType.Exception)]
+        //[RecordAttribute(Server.Filter.RecordType.Right | Server.Filter.RecordType.Log | Server.Filter.RecordType.Exception)]
         public void CreateFolder(string FolderPath)
         {
             if (!isExistFolder(FolderPath))
@@ -168,7 +171,7 @@ namespace AuscultationService
         {
             return File.Exists(FilePath);
         }
-        [RecordAttribute(Server.Filter.RecordType.Right | Server.Filter.RecordType.Log | Server.Filter.RecordType.Exception)]
+       // [RecordAttribute(Server.Filter.RecordType.Right | Server.Filter.RecordType.Log | Server.Filter.RecordType.Exception)]
         public string GetFilePath(string StetName, DateTime RecordTime, string Guid)
         {
             return Path.Combine(AudioSaveRootPath, StetName + "\\" + RecordTime.Year + "\\" + RecordTime.Month + "\\" + RecordTime.Day + "\\" + Guid + ".MP3");

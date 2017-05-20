@@ -64,6 +64,10 @@
     <Compile Include="Protocol\Derive\RefleshStatusCode.cs" />
     <Compile Include="Protocol\Derive\RequestOnlineInfoCode.cs" />
     <Compile Include="Protocol\Derive\RemoteExitCode.cs" />
+    <Compile Include="Protocol\Remote\RKQYPCode.cs" />
+    <Compile Include="Protocol\Remote\RMessageCode.cs" />
+    <Compile Include="Protocol\Remote\RYHDLCode.cs" />
+    <Compile Include="Protocol\Remote\RQQLJCode.cs" />
     <Compile Include="Utilities\SerializaHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
